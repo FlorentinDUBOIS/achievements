@@ -1,8 +1,32 @@
-import Vue from 'vue'
 import Router from 'vue-router'
 
-Vue.use(Router)
+import About from '../about/about.component'
+import Camera from '../camera/camera.component'
+import Home from '../home/home.component'
+import Settings from '../settings/settings.component'
+import Success from '../success/success.component'
 
 export default new Router({
-  routes: []
+  routes: [
+    {
+      path: '/',
+      component: Home
+    },
+    {
+      path: '/about',
+      component: About
+    },
+    {
+      path: '/camera',
+      component: Camera
+    },
+    {
+      path: '/settings',
+      component: Settings
+    },
+    {
+      path: '/success',
+      component: Success
+    }
+  ]
 })

@@ -4,7 +4,7 @@ import About from '../about/about.component'
 import Camera from '../camera/camera.component'
 import Home from '../home/home.component'
 import Settings from '../settings/settings.component'
-import Success from '../success/success.component'
+import Achievements from '../achievements/achievements.component'
 
 export default new Router({
   routes: [
@@ -25,8 +25,8 @@ export default new Router({
       component: Settings
     },
     {
-      path: '/success',
-      component: Success
+      path: '/achievements',
+      component: Achievements
     }
   ]
 })

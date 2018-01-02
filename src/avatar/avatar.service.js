@@ -8,8 +8,7 @@ export class Avatar {
 
   generate () {
     const icon = new Identicon(this.hash, {
-      background: [255, 255, 255, 0], // rgba white
-      margin: 0.1,
+      margin: 0.2,
       size: 256,
       format: 'svg'
     })

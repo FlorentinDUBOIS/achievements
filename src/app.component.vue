@@ -55,7 +55,13 @@
       display: flex;
       flex-direction: column;
 
+      max-height: calc(100vh - 56px);
+      overflow: auto;
+
       & .content {
+        max-height: calc(100vh - 56px);
+        overflow: auto;
+
         position: relative;
         flex: 1;
       }
@@ -92,7 +98,7 @@ export default {
       }, {
         icon: 'star',
         label: 'Succès',
-        to: '/success'
+        to: '/achievements'
       }, {
         icon: 'camera',
         label: 'Caméra',

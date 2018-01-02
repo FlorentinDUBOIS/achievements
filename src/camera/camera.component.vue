@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" class="container">
+  <div ref="container" class="camera-container">
     <canvas ref="canvas"></canvas>
 
     <md-snackbar md-position="center" :md-duration="duration" :md-active.sync="snackbar" md-persistent>
@@ -10,7 +10,7 @@
 </template>
 
 <style lang="scss" scoped>
-.container {
+.camera-container {
   width: 100%;
   height: 100%;
 }

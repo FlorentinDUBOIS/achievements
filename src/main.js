@@ -7,6 +7,7 @@ import Router from 'vue-router'
 
 import App from './app.component'
 import router from './router'
+import { RouterService } from './router/router.service'
 
 Vue.use(Router)
 Vue.use(Material)
@@ -18,6 +19,10 @@ const application = new Vue({
   render (h) {
     return h(App)
   }
+})
+
+RouterService.push({
+  path: '/'
 })
 
 // render the application on this component

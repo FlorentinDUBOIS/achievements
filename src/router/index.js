@@ -5,6 +5,7 @@ import Camera from '../camera/camera.component'
 import Home from '../home/home.component'
 import Settings from '../settings/settings.component'
 import Achievements from '../achievements/achievements.component'
+import Messenger from '../messenger/messenger.component'
 
 export default new Router({
   routes: [
@@ -27,6 +28,10 @@ export default new Router({
     {
       path: '/achievements',
       component: Achievements
+    },
+    {
+      path: '/messenger',
+      component: Messenger
     }
   ]
 })

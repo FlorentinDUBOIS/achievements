@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: 'Settings',
+  name: 'SwSettings',
   data () {
     return {
       local_data: false

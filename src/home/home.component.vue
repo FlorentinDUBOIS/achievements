@@ -28,14 +28,14 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'SwHome',
   data () {
     return {
       size: 360,
       signin: false,
       icon: 'account_box',
       label: 'Bonjour !',
-      description: 'Connexion via l\'organisation du Startup week-end'
+      description: 'Connexion via le qrcode de votre badge du startup week-end'
     }
   }
 }

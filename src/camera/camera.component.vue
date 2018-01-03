@@ -1,6 +1,17 @@
 <template>
   <div ref="container" class="camera-container">
-    <canvas ref="canvas"></canvas>
+    <div v-if="!allowed" class="state">
+      <md-empty-state
+        class="md-accent"
+        md-rounded
+        md-icon="error_outline"
+        md-label="Caméra inaccessible"
+        :md-size="size"
+        md-description="Veuillez activer la caméra afin de scanner les qrcodes">
+      </md-empty-state>
+    </div>
+
+    <canvas v-if="allowed" ref="canvas"></canvas>
 
     <md-snackbar md-position="center" :md-duration="duration" :md-active.sync="snackbar" md-persistent>
       <span>La caméra est requise pour lire les qrcodes</span>
@@ -13,6 +24,16 @@
 .camera-container {
   width: 100%;
   height: 100%;
+
+  & > .state {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
 
@@ -21,11 +42,13 @@ import {Camera} from './camera.service'
 import {Scheduler} from 'rxjs'
 
 export default {
-  name: 'Camera',
+  name: 'SwCamera',
   data () {
     return {
       video: document.createElement('video'),
+      allowed: true,
       snackbar: false,
+      size: 360,
       duration: 5000
     }
   },
@@ -79,11 +102,13 @@ export default {
             video.play()
           })
 
+          this.allowed = true
           this.subscription = Scheduler
             .animationFrame
             .schedule(this.refresh(this))
         })
         .catch(() => {
+          this.allowed = false
           this.snackbar = true
         })
     }

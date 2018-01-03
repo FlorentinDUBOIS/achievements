@@ -30,7 +30,7 @@ import {Achievements} from './achievements.service'
 const achievements = new Achievements()
 
 export default {
-  name: 'Achievements',
+  name: 'SwAchievements',
   data () {
     return {
       achievements: []

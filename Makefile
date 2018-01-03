@@ -22,10 +22,13 @@ rwildcard			:= $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(s
 all: init format lint release
 
 .PHONY: init
-init:
+init: dep
 	go get -u github.com/golang/dep
 	go get -u github.com/alecthomas/gometalinter
 	gometalinter --install --update
+
+.PHONY: dep
+dep:
 	dep ensure
 
 .PHONY: format

@@ -16,6 +16,9 @@
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
 
+# project dependencies
+vendor/
+
 ### Node ###
 # Logs
 logs
@@ -76,5 +79,7 @@ typings/
 # dotenv environment variables file
 .env
 
+# project build directory
+dist/
 
 # End of https://www.gitignore.io/api/go,node

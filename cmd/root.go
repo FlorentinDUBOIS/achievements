@@ -1,6 +1,10 @@
 package cmd
 
 import (
+	"fmt"
+
+	"github.com/FlorentinDUBOIS/achievements/api"
+	"github.com/FlorentinDUBOIS/achievements/router"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -9,10 +13,16 @@ import (
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	RootCmd.PersistentFlags().Int32P("log-level", "l", 4, "set the logging level")
+	RootCmd.PersistentFlags().Int32P("log-level", "", 4, "set the logging level")
 	RootCmd.PersistentFlags().StringP("config", "c", "", "set the configuration file")
 
+	RootCmd.Flags().Int32P("listen", "l", 9300, "set the port to listen")
+
 	if err := viper.BindPFlags(RootCmd.PersistentFlags()); err != nil {
+		log.Fatal(err)
+	}
+
+	if err := viper.BindPFlags(RootCmd.Flags()); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -57,5 +67,13 @@ func initConfig() {
 var RootCmd = &cobra.Command{
 	Use:   "achievements",
 	Short: "Launch the startup achievements back-end",
-	Run:   func(cmd *cobra.Command, arguments []string) {},
+	Run: func(cmd *cobra.Command, arguments []string) {
+		r := router.NewRouter()
+		listen := viper.GetInt("listen")
+
+		r.Register(api.Messenger)
+		if err := r.Server.Start(fmt.Sprintf(":%d", listen)); err != nil {
+			log.Fatal(err)
+		}
+	},
 }

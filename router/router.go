@@ -6,7 +6,7 @@ import (
 
 // Handler interface
 type Handler interface {
-	Register(*echo.Echo)
+	Register(*echo.Group)
 }
 
 // Route represent an api route
@@ -45,6 +45,6 @@ func NewRouter() *Router {
 }
 
 // Register a route
-func (r *Router) Register(handler Handler) {
-	handler.Register(r.Server)
+func (r *Router) Register(path string, handler Handler, middlewares ...echo.MiddlewareFunc) {
+	handler.Register(r.Server.Group(path, middlewares...))
 }

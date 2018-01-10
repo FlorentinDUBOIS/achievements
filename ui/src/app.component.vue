@@ -95,9 +95,17 @@ export default {
       logout: false,
       path: '/',
       appItems: [{
+        icon: 'star',
+        label: 'Ranking',
+        to: '/ranking'
+      }, {
         icon: 'forum',
         label: 'Messenger',
         to: '/messenger'
+      }, {
+        icon: 'people',
+        label: 'Staff',
+        to: '/staff'
       }],
       settingsItems: [{
         icon: 'settings',

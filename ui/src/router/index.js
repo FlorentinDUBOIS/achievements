@@ -6,6 +6,8 @@ import Home from '../home/home.component'
 import Settings from '../settings/settings.component'
 import Achievements from '../achievements/achievements.component'
 import Messenger from '../messenger/messenger.component'
+import Staff from '../staff/staff.component'
+import Ranking from '../ranking/ranking.component'
 
 export default new Router({
   routes: [
@@ -32,6 +34,14 @@ export default new Router({
     {
       path: '/messenger',
       component: Messenger
+    },
+    {
+      path: '/ranking',
+      component: Ranking
+    },
+    {
+      path: '/staff',
+      component: Staff
     }
   ]
 })

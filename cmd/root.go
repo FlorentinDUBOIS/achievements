@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/FlorentinDUBOIS/achievements/api"
 	"github.com/FlorentinDUBOIS/achievements/router"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -71,7 +70,6 @@ var RootCmd = &cobra.Command{
 		r := router.NewRouter()
 		listen := viper.GetInt("listen")
 
-		r.Register(api.Messenger)
 		if err := r.Server.Start(fmt.Sprintf(":%d", listen)); err != nil {
 			log.Fatal(err)
 		}

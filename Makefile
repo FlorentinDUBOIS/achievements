@@ -1,8 +1,8 @@
 # Variables
 BUILD_DIR 		:= dist
 GITHASH 			:= $(shell git rev-parse HEAD)
-LINT_PATHS		:= ./cmd/... achievements.go
-FORMAT_PATHS 	:= ./cmd achievements.go
+LINT_PATHS		:= ./core/... ./cmd/... ./router/... ./api/... achievements.go
+FORMAT_PATHS 	:= ./core ./cmd ./router ./api achievements.go
 DEADLINE 			:= 60s
 
 # Compilation variables

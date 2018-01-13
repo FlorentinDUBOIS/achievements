@@ -4,47 +4,50 @@ import (
 	"github.com/labstack/echo"
 )
 
-// Handler interface
+// Handler register
 type Handler interface {
 	Register(*echo.Group)
 }
 
-// Route represent an api route
+// Handlers is an array of handler
+type Handlers []Handler
+
+// Register an handler to the group
+func (h Handlers) Register(g *echo.Group) {
+	for _, handler := range h {
+		handler.Register(g)
+	}
+}
+
+// Route structure
 type Route struct {
 	Method      string
 	Path        string
-	Handler     func(echo.Context) error
+	Handler     echo.HandlerFunc
 	Middlewares []echo.MiddlewareFunc
 }
 
 // Register a route
-func (r Route) Register(server *echo.Echo) {
-	server.Add(r.Method, r.Path, r.Handler, r.Middlewares...)
+func (s *Route) Register(g *echo.Group) {
+	g.Add(s.Method, s.Path, s.Handler, s.Middlewares...)
 }
 
-// Routes is an array of route
-type Routes []Route
-
-// Register all routes
-func (r Routes) Register(server *echo.Echo) {
-	for _, route := range r {
-		route.Register(server)
-	}
+// CRUD structure
+type CRUD struct {
+	Path        string
+	Middlewares []echo.MiddlewareFunc
+	Create      Route
+	Read        Route
+	Update      Route
+	Delete      Route
 }
 
-// Router represent the application router
-type Router struct {
-	Server *echo.Echo
-}
+// Register CRUD
+func (s CRUD) Register(g *echo.Group) {
+	g.Use(s.Middlewares...)
 
-// NewRouter create a new instance of router
-func NewRouter() *Router {
-	return &Router{
-		Server: echo.New(),
-	}
-}
-
-// Register a route
-func (r *Router) Register(path string, handler Handler, middlewares ...echo.MiddlewareFunc) {
-	handler.Register(r.Server.Group(path, middlewares...))
+	g.POST(s.Path+s.Create.Path, s.Create.Handler, s.Create.Middlewares...)
+	g.GET(s.Path+s.Read.Path, s.Read.Handler, s.Read.Middlewares...)
+	g.PUT(s.Path+s.Update.Path, s.Update.Handler, s.Update.Middlewares...)
+	g.DELETE(s.Path+s.Delete.Path, s.Delete.Handler, s.Delete.Middlewares...)
 }

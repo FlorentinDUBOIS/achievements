@@ -21,8 +21,13 @@ const application = new Vue({
   }
 })
 
+let { hash } = location
+if (hash && hash.startsWith('#')) {
+  hash = hash.substr(1)
+}
+
 RouterService.push({
-  path: '/'
+  path: hash || '/'
 })
 
 // render the application on this component

@@ -26,6 +26,18 @@
   version = "v1.0"
 
 [[projects]]
+  name = "github.com/jinzhu/gorm"
+  packages = [".","dialects/postgres"]
+  revision = "5174cc5c242a728b435ea2be8a2f7f998e15429b"
+  version = "v1.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/jinzhu/inflection"
+  packages = ["."]
+  revision = "1c35d901db3da928c72a72d8458480cc9ade058f"
+
+[[projects]]
   name = "github.com/labstack/echo"
   packages = [".","middleware"]
   revision = "b338075a0fc6e1a0683dbf03d09b4957a289e26f"
@@ -36,6 +48,12 @@
   packages = ["bytes","color","log","random"]
   revision = "57409ada9da0f2afad6664c49502f8c50fbd8476"
   version = "0.2.3"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/lib/pq"
+  packages = [".","hstore","oid"]
+  revision = "83612a56d3dd153a94a629cd64925371c9adad78"
 
 [[projects]]
   name = "github.com/magiconair/properties"
@@ -123,6 +141,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/willf/pad"
+  packages = ["."]
+  revision = "b3d7806010228b1a954b4d9c4ee4cf6cb476b063"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/crypto"
   packages = ["acme","acme/autocert","ssh/terminal"]
   revision = "0fcca4842a8d74bfddc2c96a073bd2a4d2a7a2e8"
@@ -148,6 +172,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "6f9f62d4f6fd391a8c4df85fd8f08061209625b2c7ea2b7b60deb086dc75d21c"
+  inputs-digest = "01cec8eefe083168c6eaea03a30967c5badd8da5f882b35a73acf385190dae4f"
   solver-name = "gps-cdcl"
   solver-version = 1

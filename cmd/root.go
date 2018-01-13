@@ -2,11 +2,16 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
 
+	"github.com/FlorentinDUBOIS/achievements/middlewares"
 	"github.com/FlorentinDUBOIS/achievements/router"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"github.com/willf/pad"
 )
 
 func init() {
@@ -30,12 +35,6 @@ func initConfig() {
 	viper.SetEnvPrefix("achievements")
 	viper.AutomaticEnv()
 
-	level := viper.GetInt("log-level")
-	log.SetLevel(log.AllLevels[4])
-	if level < len(log.AllLevels) && level >= 0 {
-		log.SetLevel(log.AllLevels[level])
-	}
-
 	// Set config search path
 	viper.AddConfigPath("/etc/achievements/")
 	viper.AddConfigPath("$HOME/.achievements")
@@ -49,6 +48,12 @@ func initConfig() {
 		} else {
 			log.Panicf("Fatal error in config file: %v \n", err)
 		}
+	}
+
+	level := viper.GetInt("log-level")
+	log.SetLevel(log.AllLevels[4])
+	if level < len(log.AllLevels) && level >= 0 {
+		log.SetLevel(log.AllLevels[level])
 	}
 
 	// Load user defined config
@@ -67,10 +72,26 @@ var RootCmd = &cobra.Command{
 	Use:   "achievements",
 	Short: "Launch the startup achievements back-end",
 	Run: func(cmd *cobra.Command, arguments []string) {
-		r := router.NewRouter()
+		r := echo.New()
 		listen := viper.GetInt("listen")
 
-		if err := r.Server.Start(fmt.Sprintf(":%d", listen)); err != nil {
+		r.Logger.SetOutput(ioutil.Discard)
+
+		r.Use(middleware.Gzip())
+		r.Use(middleware.CORS())
+		r.Use(middleware.Recover())
+		r.Use(middleware.MethodOverride())
+
+		r.Use(middlewares.Logger())
+
+		router.APIv0.Register(r.Group("/api/v0"))
+
+		for _, route := range r.Routes() {
+			log.Debugf("%s %s ---> %s", pad.Right(route.Method, 7, " "), pad.Right(route.Path, 40, " "), route.Name)
+		}
+
+		log.Infof("Listen at :%d", listen)
+		if err := r.Start(fmt.Sprintf(":%d", listen)); err != nil {
 			log.Fatal(err)
 		}
 	},

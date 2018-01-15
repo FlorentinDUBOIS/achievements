@@ -28,7 +28,7 @@ type Route struct {
 }
 
 // Register a route
-func (s *Route) Register(g *echo.Group) {
+func (s Route) Register(g *echo.Group) {
 	g.Add(s.Method, s.Path, s.Handler, s.Middlewares...)
 }
 

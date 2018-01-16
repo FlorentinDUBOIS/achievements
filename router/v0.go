@@ -3,12 +3,37 @@ package router
 import (
 	"net/http"
 
+	"github.com/FlorentinDUBOIS/achievements/api"
 	"github.com/FlorentinDUBOIS/achievements/api/achievements"
 	"github.com/FlorentinDUBOIS/achievements/api/users"
 )
 
 // APIv0 group all handlers of the api at version 0
 var APIv0 = Handlers{
+	Route{
+		Method:  http.MethodGet,
+		Path:    "/achievements/",
+		Handler: achievements.Get,
+	},
+	CRUD{
+		Path: "/achievements",
+		Create: Route{
+			Path:    "/",
+			Handler: achievements.Create,
+		},
+		Read: Route{
+			Path:    "/:id",
+			Handler: achievements.GetOne,
+		},
+		Update: Route{
+			Path:    "/:id",
+			Handler: achievements.Update,
+		},
+		Delete: Route{
+			Path:    "/:id",
+			Handler: achievements.Delete,
+		},
+	},
 	Route{
 		Method:  http.MethodGet,
 		Path:    "/users/",
@@ -35,26 +60,26 @@ var APIv0 = Handlers{
 	},
 	Route{
 		Method:  http.MethodGet,
-		Path:    "/achievements/",
-		Handler: achievements.Get,
+		Path:    "/users/:uid/achievements/",
+		Handler: api.NotImplemented,
 	},
 	CRUD{
-		Path: "/achievements",
+		Path: "/users/:uid/achievements",
 		Create: Route{
 			Path:    "/",
-			Handler: achievements.Create,
+			Handler: api.NotImplemented,
 		},
 		Read: Route{
-			Path:    "/:id",
-			Handler: achievements.GetOne,
+			Path:    "/:aid",
+			Handler: api.NotImplemented,
 		},
 		Update: Route{
-			Path:    "/:id",
-			Handler: achievements.Update,
+			Path:    "/:aid",
+			Handler: api.NotImplemented,
 		},
 		Delete: Route{
-			Path:    "/:id",
-			Handler: achievements.Delete,
+			Path:    "/:aid",
+			Handler: api.NotImplemented,
 		},
 	},
 }

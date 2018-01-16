@@ -20,9 +20,26 @@ var databaseCreateCmd = &cobra.Command{
 
 		user := new(models.User)
 		achievement := new(models.Achievement)
+		accomplished := new(models.Accomplished)
 
-		tables := []interface{}{user, achievement}
+		tables := []interface{}{user, achievement, accomplished}
 		if err := db.CreateTable(tables...).Error; err != nil {
+			log.Fatal(err)
+		}
+
+		db.
+			Model(accomplished).
+			AddForeignKey("user_id", "users (id)", "cascade", "cascade")
+
+		if err := db.Error; err != nil {
+			log.Fatal(err)
+		}
+
+		db.
+			Model(accomplished).
+			AddForeignKey("achievement_id", "achievements (id)", "cascade", "cascade")
+
+		if err := db.Error; err != nil {
 			log.Fatal(err)
 		}
 	},

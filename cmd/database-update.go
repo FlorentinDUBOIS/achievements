@@ -18,11 +18,11 @@ var databaseUpdateCmd = &cobra.Command{
 		db := store.Connection()
 		defer db.Close()
 
-		tables := []interface{}{
-			new(models.User),
-			new(models.Achievement),
-		}
+		user := new(models.User)
+		achievement := new(models.Achievement)
+		accomplished := new(models.Accomplished)
 
+		tables := []interface{}{user, achievement, accomplished}
 		if err := db.AutoMigrate(tables...).Error; err != nil {
 			log.Fatal(err)
 		}

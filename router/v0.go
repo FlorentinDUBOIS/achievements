@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/FlorentinDUBOIS/achievements/api"
+	"github.com/FlorentinDUBOIS/achievements/api/accomplished"
 	"github.com/FlorentinDUBOIS/achievements/api/achievements"
 	"github.com/FlorentinDUBOIS/achievements/api/users"
 )
@@ -61,13 +62,13 @@ var APIv0 = Handlers{
 	Route{
 		Method:  http.MethodGet,
 		Path:    "/users/:uid/achievements/",
-		Handler: api.NotImplemented,
+		Handler: accomplished.Get,
 	},
 	CRUD{
 		Path: "/users/:uid/achievements",
 		Create: Route{
 			Path:    "/",
-			Handler: api.NotImplemented,
+			Handler: accomplished.SetAccomplished,
 		},
 		Read: Route{
 			Path:    "/:aid",
@@ -79,7 +80,7 @@ var APIv0 = Handlers{
 		},
 		Delete: Route{
 			Path:    "/:aid",
-			Handler: api.NotImplemented,
+			Handler: accomplished.Delete,
 		},
 	},
 }

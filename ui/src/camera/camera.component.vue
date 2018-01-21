@@ -6,14 +6,14 @@
         md-rounded
         md-icon="error_outline"
         md-label="Caméra inaccessible"
-        :md-size="size"
+        :md-size="360"
         md-description="Veuillez activer la caméra afin de scanner les qrcodes">
       </md-empty-state>
     </div>
 
     <canvas v-if="allowed" ref="canvas"></canvas>
 
-    <md-snackbar md-position="center" :md-duration="duration" :md-active.sync="snackbar" md-persistent>
+    <md-snackbar md-position="center" :md-duration="5000" :md-active.sync="snackbar" md-persistent>
       <span>La caméra est requise pour lire les qrcodes</span>
       <md-button class="md-accent" @click="start()">Réessayer</md-button>
     </md-snackbar>
@@ -47,9 +47,7 @@ export default {
     return {
       video: document.createElement('video'),
       allowed: true,
-      snackbar: false,
-      size: 360,
-      duration: 5000
+      snackbar: false
     }
   },
 

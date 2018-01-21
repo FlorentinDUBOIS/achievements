@@ -6,11 +6,17 @@ import (
 	"github.com/FlorentinDUBOIS/achievements/api"
 	"github.com/FlorentinDUBOIS/achievements/api/accomplished"
 	"github.com/FlorentinDUBOIS/achievements/api/achievements"
+	"github.com/FlorentinDUBOIS/achievements/api/ranking"
 	"github.com/FlorentinDUBOIS/achievements/api/users"
 )
 
 // APIv0 group all handlers of the api at version 0
 var APIv0 = Handlers{
+	Route{
+		Method:  http.MethodGet,
+		Path:    "/ranking/",
+		Handler: ranking.Get,
+	},
 	Route{
 		Method:  http.MethodGet,
 		Path:    "/achievements/",
@@ -67,7 +73,7 @@ var APIv0 = Handlers{
 	CRUD{
 		Path: "/users/:uid/achievements",
 		Create: Route{
-			Path:    "/",
+			Path:    "/:aid",
 			Handler: accomplished.SetAccomplished,
 		},
 		Read: Route{

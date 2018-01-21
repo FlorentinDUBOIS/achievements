@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/FlorentinDUBOIS/achievements/core/store"
+	"github.com/FlorentinDUBOIS/achievements/core/pg"
 	"github.com/FlorentinDUBOIS/achievements/models"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -15,7 +15,7 @@ var databaseCreateCmd = &cobra.Command{
 	Use:   "create",
 	Short: "Create the database",
 	Run: func(cmd *cobra.Command, arguments []string) {
-		db := store.Connection()
+		db := pg.Connection()
 		defer db.Close()
 
 		user := new(models.User)

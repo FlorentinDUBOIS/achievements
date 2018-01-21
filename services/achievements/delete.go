@@ -1,13 +1,13 @@
 package achievements
 
 import (
-	"github.com/FlorentinDUBOIS/achievements/core/store"
+	"github.com/FlorentinDUBOIS/achievements/core/pg"
 	"github.com/FlorentinDUBOIS/achievements/models"
 )
 
 // Delete an achievement
 func Delete(id string) error {
-	db := store.Connection()
+	db := pg.Connection()
 
 	db.
 		Where("id = ?", id).

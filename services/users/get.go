@@ -1,13 +1,13 @@
 package users
 
 import (
-	"github.com/FlorentinDUBOIS/achievements/core/store"
+	"github.com/FlorentinDUBOIS/achievements/core/pg"
 	"github.com/FlorentinDUBOIS/achievements/models"
 )
 
 // Get all users
 func Get() ([]models.User, error) {
-	db := store.Connection()
+	db := pg.Connection()
 	users := []models.User{}
 
 	db.Find(&users)
@@ -20,7 +20,7 @@ func Get() ([]models.User, error) {
 
 // GetOne user
 func GetOne(id string) (*models.User, error) {
-	db := store.Connection()
+	db := pg.Connection()
 	user := new(models.User)
 
 	db.

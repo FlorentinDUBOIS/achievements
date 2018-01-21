@@ -4,14 +4,14 @@ import (
 	"errors"
 	"time"
 
-	"github.com/FlorentinDUBOIS/achievements/core/store"
+	"github.com/FlorentinDUBOIS/achievements/core/pg"
 	"github.com/FlorentinDUBOIS/achievements/models"
 	uuid "github.com/satori/go.uuid"
 )
 
 // Create an achievement
 func Create(achievement *models.Achievement) error {
-	db := store.Connection()
+	db := pg.Connection()
 
 	if !db.NewRecord(achievement) {
 		return errors.New("Achievement already exists")

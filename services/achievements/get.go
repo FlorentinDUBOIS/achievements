@@ -1,13 +1,13 @@
 package achievements
 
 import (
-	"github.com/FlorentinDUBOIS/achievements/core/store"
+	"github.com/FlorentinDUBOIS/achievements/core/pg"
 	"github.com/FlorentinDUBOIS/achievements/models"
 )
 
 // Get all achievements
 func Get() ([]models.Achievement, error) {
-	db := store.Connection()
+	db := pg.Connection()
 	achievements := []models.Achievement{}
 
 	db.Find(&achievements)
@@ -20,7 +20,7 @@ func Get() ([]models.Achievement, error) {
 
 // GetOne achievement
 func GetOne(id string) (*models.Achievement, error) {
-	db := store.Connection()
+	db := pg.Connection()
 	achievement := new(models.Achievement)
 
 	db.Where("id = ?", id).First(achievement)

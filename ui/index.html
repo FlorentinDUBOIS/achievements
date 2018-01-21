@@ -24,6 +24,9 @@
       for (var file of chunk.files) {
         if (file.match(/\.(js|css)$/)) { %>
     <link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\.css$/)?'style':'script' %>"><% }}} %>
+  
+    <link rel="import" href="static/bower_components/granite-qrcode-scanner/granite-qrcode-scanner.html">
+    <link rel="import" href="static/bower_components/granite-qrcode-generator/granite-qrcode-generator.html">
   </head>
 
   <body>

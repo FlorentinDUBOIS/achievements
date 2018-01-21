@@ -1,0 +1,15 @@
+---
+
+log-level: 5
+
+database:
+  host: x.x.x.x
+  port: xxxx
+  name: xxxx
+  user: xxxx
+  password: xxxx
+
+redis:
+  address: x.x.x.x:xxxx
+  password: xxxx
+  db: x

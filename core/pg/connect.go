@@ -1,4 +1,4 @@
-package store
+package pg
 
 import (
 	"fmt"
@@ -24,7 +24,7 @@ func connect() {
 	user := viper.GetString("database.user")
 	password := viper.GetString("database.password")
 
-	uri := fmt.Sprintf("host=%s port=%d dbname=%s user=%s password=%s sslmode=disable", host, port, name, user, password)
+	uri := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable password=%s", host, port, user, name, password)
 
 	db, err = gorm.Open("postgres", uri)
 	if err != nil {

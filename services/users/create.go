@@ -4,14 +4,14 @@ import (
 	"errors"
 	"time"
 
-	"github.com/FlorentinDUBOIS/achievements/core/store"
+	"github.com/FlorentinDUBOIS/achievements/core/pg"
 	"github.com/FlorentinDUBOIS/achievements/models"
 	uuid "github.com/satori/go.uuid"
 )
 
 // Create an user
 func Create(user *models.User) error {
-	db := store.Connection()
+	db := pg.Connection()
 
 	if !db.NewRecord(user) {
 		return errors.New("User already exists")

@@ -9,7 +9,7 @@ export class Avatar {
   generate () {
     const icon = new Identicon(this.hash, {
       margin: 0.2,
-      size: 256,
+      size: 64,
       format: 'svg'
     })
 

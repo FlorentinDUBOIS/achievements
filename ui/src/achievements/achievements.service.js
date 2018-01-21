@@ -1,23 +1,13 @@
-import Dexie from 'dexie'
-
-const db = new Dexie('achievements')
+import { baseUri } from '../app.config'
 
 export class Achievements {
-  constructor () {
-    db.version(1).stores({
-      achievements: 'name,description'
-    })
+  static find () {
+    return fetch(`${baseUri}/achievements/`)
+      .then(res => res.json())
   }
 
-  connect () {
-    return db.open()
-  }
-
-  find () {
-    return db.achievements.toArray()
-  }
-
-  insert ({ name, description }) {
-    return db.achievements.add({ name, description })
+  static get (id) {
+    return fetch(`${baseUri}/achievements/${id}`)
+      .then(res => res.json())
   }
 }

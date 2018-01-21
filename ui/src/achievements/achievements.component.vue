@@ -1,24 +1,50 @@
 <template>
-  <md-list class="achievements-container">
-    <md-subheader>Succès</md-subheader>
+  <div class="achievements-container">
+    <div v-if="error" class="state">
+        <md-empty-state
+          class="md-accent"
+          md-rounded
+          md-icon="error_outline"
+          md-label="Succès indisponibles"
+          :md-size="360"
+          md-description="Veuillez vérifier votre connexion à Internet">
+        </md-empty-state>
+    </div>
 
-    <md-list-item v-bind:key="achievement.id" v-for="achievement in achievements">
-      <md-avatar>
-        <img :src="achievement.name | avatar" alt="avatar">
-      </md-avatar>
+    <md-list v-if="!error" class="">
+      <md-subheader>Succès</md-subheader>
 
-      <div class="md-list-item-text">
-        <span>{{ achievement.name }}</span>
-        <span>{{ achievement.description }}</span>
-      </div>
-    </md-list-item>
-  </md-list>
+      <md-list-item @click="go(`/achievements/${achievement.id}`)" v-bind:key="achievement.id" v-for="achievement in achievements">
+        <md-avatar>
+          <img :src="achievement.id | avatar" alt="avatar">
+        </md-avatar>
+
+        <div class="md-list-item-text">
+          <span>{{ achievement.name }}</span>
+          <span class="">{{ achievement.description }}</span>
+        </div>
+      </md-list-item>
+    </md-list>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .achievements-container {
+  width: 100%;
+  height: 100%;
+
   & span {
     text-overflow: ellipsis;
+  }
+
+  & > .state {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
   }
 }
 </style>
@@ -26,36 +52,36 @@
 <script>
 import {Avatar} from '../avatar/avatar.service'
 import {Achievements} from './achievements.service'
-
-const achievements = new Achievements()
+import {RouterService} from '../router/router.service'
 
 export default {
   name: 'SwAchievements',
   data () {
     return {
+      error: false,
       achievements: []
     }
   },
 
-  beforeMounted () {
-    this
-      .populate()
-      .then(achievement => { this.achievements = achievements })
-      .catch(console.log)
+  beforeMount () {
+    Achievements
+      .find()
+      .then(achievements => { this.achievements = achievements })
+      .catch(err => {
+        this.error = true
+        console.error(err)
+      })
   },
 
   methods: {
-    async populate () {
-      await achievements.connect()
-      await achievements.insert({name: 'foo', description: 'bar'})
-
-      return achievements.find()
+    go (path) {
+      RouterService.push({ path })
     }
   },
 
   filters: {
-    avatar: function (name) {
-      return new Avatar(name).generate()
+    avatar: function (id) {
+      return new Avatar(id).generate()
     }
   }
 }

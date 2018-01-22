@@ -14,6 +14,12 @@
   version = "v1.4.2"
 
 [[projects]]
+  name = "github.com/go-redis/redis"
+  packages = [".","internal","internal/consistenthash","internal/hashtag","internal/pool","internal/proto"]
+  revision = "4021ace05686f632ff17fd824bbed229fc474cf8"
+  version = "v6.8.2"
+
+[[projects]]
   branch = "master"
   name = "github.com/hashicorp/hcl"
   packages = [".","hcl/ast","hcl/parser","hcl/scanner","hcl/strconv","hcl/token","json/parser","json/scanner","json/token"]
@@ -84,6 +90,12 @@
   packages = ["."]
   revision = "16398bac157da96aa88f98a2df640c7f32af1da2"
   version = "v1.0.1"
+
+[[projects]]
+  name = "github.com/satori/go.uuid"
+  packages = ["."]
+  revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
+  version = "v1.2.0"
 
 [[projects]]
   name = "github.com/sirupsen/logrus"
@@ -172,6 +184,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "01cec8eefe083168c6eaea03a30967c5badd8da5f882b35a73acf385190dae4f"
+  inputs-digest = "60f04786018b576b92fe08e8435578793af5901259a18fc6ae37fb304ee24f1d"
   solver-name = "gps-cdcl"
   solver-version = 1

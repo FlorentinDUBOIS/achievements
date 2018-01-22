@@ -21,7 +21,7 @@
 
         <div class="md-list-item-text">
           <span>{{ achievement.name }}</span>
-          <span class="">{{ achievement.description }}</span>
+          <span>{{ achievement.description }}</span>
         </div>
       </md-list-item>
     </md-list>

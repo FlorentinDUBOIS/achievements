@@ -82,8 +82,10 @@ export default {
         const {video} = vm
         const {canvas} = vm.$refs
         const context = canvas.getContext('2d')
+        const width = canvas.getAttribute('width')
+        const height = canvas.getAttribute('height')
 
-        context.drawImage(video, 0, 0, canvas.getAttribute('width'), canvas.getAttribute('height'))
+        context.drawImage(video, 0, 0, width, height)
 
         this.schedule()
       }

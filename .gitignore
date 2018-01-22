@@ -80,6 +80,6 @@ typings/
 .env
 
 # project build directory
-dist/
+# dist/
 
 # End of https://www.gitignore.io/api/go,node

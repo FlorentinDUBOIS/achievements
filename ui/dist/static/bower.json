@@ -1,0 +1,22 @@
+{
+  "name": "achievements",
+  "description": "Startup week-end achievements website",
+  "main": "",
+  "authors": [
+    "Florentin DUBOIS <contact@florentin-dubois.fr>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/FlorentinDUBOIS/achievements",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "granite-qrcode-generator": "LostInBrittany/granite-qrcode-generator#^1.1.4",
+    "granite-qrcode-scanner": "LostInBrittany/granite-qrcode-scanner#^1.6.0"
+  }
+}

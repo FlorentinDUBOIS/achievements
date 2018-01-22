@@ -11,11 +11,13 @@
       </md-empty-state>
     </div>
 
-    <canvas v-if="allowed" ref="canvas"></canvas>
+    <div v-if="allowed">
+      <granite-qrcode-scanner ref="scanner"></granite-qrcode-scanner>
+    </div>
 
     <md-snackbar md-position="center" :md-duration="5000" :md-active.sync="snackbar" md-persistent>
       <span>La caméra est requise pour lire les qrcodes</span>
-      <md-button class="md-accent" @click="start()">Réessayer</md-button>
+      <md-button class="md-accent">Réessayer</md-button>
     </md-snackbar>
   </div>
 </template>
@@ -38,14 +40,12 @@
 </style>
 
 <script>
-import {Camera} from './camera.service'
-import {Scheduler} from 'rxjs'
+// import {Camera} from './camera.service'
 
 export default {
   name: 'SwCamera',
   data () {
     return {
-      video: document.createElement('video'),
       allowed: true,
       snackbar: false
     }
@@ -54,64 +54,19 @@ export default {
   mounted () {
     // wait after the component to be fully rendered
     this.$nextTick(() => {
-      const {video} = this
-      const {canvas, container} = this.$refs
+      const {scanner, container} = this.$refs
 
       const width = container.clientWidth
       const height = container.clientHeight
 
-      video.setAttribute('width', width)
-      video.setAttribute('height', height)
-
-      canvas.setAttribute('width', width)
-      canvas.setAttribute('height', height)
+      scanner.setAttribute('active', 'true')
+      scanner.setAttribute('continuous', 'true')
+      scanner.setAttribute('width', width)
+      scanner.setAttribute('height', height)
+      scanner.addEventListener('qrcode-decoded', event => {
+        console.log(event.detail)
+      })
     })
-
-    this.start()
-  },
-
-  beforeDestroy () {
-    if (this.subscription) {
-      this.subscription.unsubscribe()
-    }
-  },
-
-  methods: {
-    refresh (vm) {
-      return function () {
-        const {video} = vm
-        const {canvas} = vm.$refs
-        const context = canvas.getContext('2d')
-        const width = canvas.getAttribute('width')
-        const height = canvas.getAttribute('height')
-
-        context.drawImage(video, 0, 0, width, height)
-
-        this.schedule()
-      }
-    },
-
-    start () {
-      Camera
-        .stream({video: true})
-        .then(stream => {
-          const {video} = this
-
-          video.setAttribute('src', stream)
-          video.addEventListener('canplay', event => {
-            video.play()
-          })
-
-          this.allowed = true
-          this.subscription = Scheduler
-            .animationFrame
-            .schedule(this.refresh(this))
-        })
-        .catch(() => {
-          this.allowed = false
-          this.snackbar = true
-        })
-    }
   }
 }
 </script>

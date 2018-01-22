@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"io/ioutil"
+	"strings"
 
 	"github.com/FlorentinDUBOIS/achievements/middlewares"
 	"github.com/FlorentinDUBOIS/achievements/router"
@@ -17,10 +18,10 @@ import (
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	RootCmd.PersistentFlags().Int32P("log-level", "", 4, "set the logging level")
+	RootCmd.PersistentFlags().Int32P("log-level", "", 5, "set the logging level")
 	RootCmd.PersistentFlags().StringP("config", "c", "", "set the configuration file")
 
-	RootCmd.Flags().Int32P("listen", "l", 9300, "set the port to listen")
+	RootCmd.Flags().Int32P("port", "p", 9300, "set the port to listen")
 
 	if err := viper.BindPFlags(RootCmd.PersistentFlags()); err != nil {
 		log.Fatal(err)
@@ -32,7 +33,7 @@ func init() {
 }
 
 func initConfig() {
-	viper.SetEnvPrefix("achievements")
+	viper.SetEnvKeyReplacer(strings.NewReplacer("_", "."))
 	viper.AutomaticEnv()
 
 	// Set config search path
@@ -85,6 +86,8 @@ var RootCmd = &cobra.Command{
 		r.Use(middlewares.Logger())
 
 		router.APIv0.Register(r.Group("/api/v0"))
+
+		r.Static("/", "ui/dist")
 
 		for _, route := range r.Routes() {
 			log.Debugf("%s %s ---> %s", pad.Right(route.Method, 7, " "), pad.Right(route.Path, 40, " "), route.Name)

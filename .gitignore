@@ -17,7 +17,7 @@
 .glide/
 
 # project dependencies
-vendor/
+# vendor/
 
 ### Node ###
 # Logs

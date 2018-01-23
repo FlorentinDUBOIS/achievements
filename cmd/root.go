@@ -21,7 +21,7 @@ func init() {
 	RootCmd.PersistentFlags().Int32P("log-level", "", 5, "set the logging level")
 	RootCmd.PersistentFlags().StringP("config", "c", "", "set the configuration file")
 
-	RootCmd.Flags().Int32P("port", "p", 9300, "set the port to listen")
+	RootCmd.Flags().Int32P("port", "p", 8080, "set the port to listen")
 
 	if err := viper.BindPFlags(RootCmd.PersistentFlags()); err != nil {
 		log.Fatal(err)
@@ -74,7 +74,7 @@ var RootCmd = &cobra.Command{
 	Short: "Launch the startup achievements back-end",
 	Run: func(cmd *cobra.Command, arguments []string) {
 		r := echo.New()
-		listen := viper.GetInt("listen")
+		port := viper.GetInt("port")
 
 		r.Logger.SetOutput(ioutil.Discard)
 
@@ -93,8 +93,8 @@ var RootCmd = &cobra.Command{
 			log.Debugf("%s %s ---> %s", pad.Right(route.Method, 7, " "), pad.Right(route.Path, 40, " "), route.Name)
 		}
 
-		log.Infof("Listen at :%d", listen)
-		if err := r.Start(fmt.Sprintf(":%d", listen)); err != nil {
+		log.Infof("Listen at :%d", port)
+		if err := r.Start(fmt.Sprintf(":%d", port)); err != nil {
 			log.Fatal(err)
 		}
 	},

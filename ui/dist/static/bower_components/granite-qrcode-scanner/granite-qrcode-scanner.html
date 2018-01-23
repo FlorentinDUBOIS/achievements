@@ -241,7 +241,8 @@ Typical usage:
         },
 
         observers: [
-          "_onScannerActiveChange(active, webRtc,_isAttached)"
+          "_onScannerActiveChange(active, webRtc,_isAttached)",
+          "_onSizeChange(width,height)"
         ],
 
         // *********************************************************************
@@ -304,7 +305,12 @@ Typical usage:
             this.webRtc = this._doesSupportWebRtc();
           }
         },
-        
+        _onSizeChange: function() {
+          this.updateStyles({
+            '--placeholder-width': this.width+'px',
+            '--placeholder-height': this.height+'px'
+          })
+        },
 
         // *********************************************************************
         // Event listeners
